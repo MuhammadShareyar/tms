@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Auth;
 
+use App\Helpers\ResponseHandler;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\LoginUserResource;
 use App\Models\User;
@@ -27,7 +28,7 @@ class LoginController extends Controller
 
         $responseData = new LoginUserResource($user);
 
-        return response()->json($responseData, 200);
+        return ResponseHandler::success($responseData, 'User logged in successfully');
     }
 
     public function validate(Request $request)
