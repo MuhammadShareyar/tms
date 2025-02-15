@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\TranslationResource;
 use App\Http\Requests\StoreTranslationRequest;
 use App\Http\Requests\UpdateTranslationRequest;
+use Illuminate\Support\Facades\Cache;
 
 class TranslationController extends Controller
 {
@@ -18,10 +19,30 @@ class TranslationController extends Controller
      */
     public function index()
     {
-        $translations = Translation::all();
-        
 
-        return ResponseHandler::success(TranslationResource::collection($translations));
+        $translationData =  Cache::remember('translations', 60, function () {
+            $translations = Translation::query();
+
+            // Filter the translations
+            $translations->when(request('locale'), function ($query) {
+                return $query->locale(request('locale'));
+            })->when(request('content'), function ($query) {
+                return $query->search(request('content'));
+            })->when(request('keys'), function ($query) {
+                return $query->keys(request('keys'));
+            })->when(request('tags'), function ($query) {
+                return $query->tags(request('tags'));
+            });
+
+            $translations = $translations->paginate(20);
+
+            return $translations;
+        });
+
+
+        $translationData = TranslationResource::collection($translationData)->response()->getData(true);
+
+        return ResponseHandler::success($translationData);
     }
 
     /**
@@ -35,6 +56,8 @@ class TranslationController extends Controller
 
             $translation = Translation::create($request->all());
             $translation->translationTag()->create(['tag_id' => $request->tag_id]);
+
+            Cache::forget('translations');
 
             DB::commit();
 
@@ -67,6 +90,8 @@ class TranslationController extends Controller
             if ($request->tag_id) {
                 $translation->translationTag()->update(['tag_id' => $request->tag_id]);
             }
+
+            Cache::forget('translations');
 
             DB::commit();
 
