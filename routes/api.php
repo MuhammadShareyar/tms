@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\LoginController;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\TranslationController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [LoginController::class, 'login']);
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::resource('translations', TranslationController::class);
+});

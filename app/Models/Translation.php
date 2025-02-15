@@ -4,21 +4,15 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Tag extends Model
+class Translation extends Model
 {
+    protected $fillable = ['key', 'content', 'locale'];
+
     /**
      * Get the translation tag for the translation.
      */
     public function translationTag()
     {
         return $this->hasOne(TranslationTag::class);
-    }
-
-    /**
-     * Get the translations for the tag.
-     */
-    public function translations()
-    {
-        return $this->hasMany(Translation::class);
     }
 }
