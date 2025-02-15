@@ -24,7 +24,7 @@ class TranslationSeeder extends Seeder
 
         $transTagKey = 1;
 
-        for ($keyId = 1; $keyId <= 100000; $keyId++) {
+        for ($keyId = 1; $keyId <= 10000; $keyId++) {
             $key = "key_$keyId";
 
             foreach ($locales as $locale) {

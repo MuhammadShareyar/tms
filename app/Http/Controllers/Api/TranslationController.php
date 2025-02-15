@@ -17,6 +17,33 @@ class TranslationController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+    /**
+     * @OA\GET(
+     *      path="/api/translations",
+     *      operationId="index",
+     *      tags={"Translation"},
+     *      summary="Return all translations",
+     *      security={{"apiKey":{}}},
+     * 
+     * 
+     * 
+     *      @OA\Response(
+     *          response=200,
+     *          description="OK",
+     *          ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *          ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Page Not Found"
+     *          )
+     *      ),
+     */
+
+
     public function index()
     {
 
@@ -48,6 +75,63 @@ class TranslationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
+
+    /**
+     * @OA\POST(
+     *      path="/api/translations",
+     *      operationId="store",
+     *      tags={"Translation"},
+     *      summary="Create Translation",
+     *      security={{"apiKey":{}}},
+     * 
+     *      @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 required={"key","content","tag_id","locale"},
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="key",
+     *                     description="Key",
+     *                     type="string",
+     *                     
+     *                 ),
+     *                 @OA\Property(
+     *                     property="content",
+     *                     description="Content",
+     *                     type="string",
+     *                     
+     *                 ),
+     *                 @OA\Property(
+     *                     property="locale",
+     *                     description="Locale",
+     *                     type="string",
+     *                     
+     *                 ),
+     *                 @OA\Property(
+     *                     property="tag_id",
+     *                     description="Tag Id",
+     *                     type="number",
+     *                     
+     *                 ),
+     *              )
+     *          )
+     *       ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="OK",
+     *          ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *          ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Page Not Found"
+     *          )
+     *      ),
+     */
     public function store(StoreTranslationRequest $request)
     {
         try {
@@ -71,6 +155,36 @@ class TranslationController extends Controller
     /**
      * Display the specified resource.
      */
+
+    /**
+     * @OA\GET(
+     *      path="/api/translations/{translation}",
+     *      operationId="show",
+     *      tags={"Translation"},
+     *      summary="Show Translation",
+     *      security={{"apiKey":{}}},
+     * 
+     *      @OA\Parameter(
+     *         name="translation",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *    
+     *      @OA\Response(
+     *          response=200,
+     *          description="OK",
+     *          ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *          ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Page Not Found"
+     *          )
+     *      ),
+     */
     public function show(Translation $translation)
     {
         return new TranslationResource($translation);
@@ -78,6 +192,68 @@ class TranslationController extends Controller
 
     /**
      * Update the specified resource in storage.
+     */
+
+    /**
+     * @OA\PUT(
+     *      path="/api/translations/{translation}",
+     *      operationId="update",
+     *      tags={"Translation"},
+     *      summary="Update Translation",
+     *      security={{"apiKey":{}}},
+     * 
+     *      @OA\Parameter(
+     *         name="translation",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *      @OA\RequestBody(
+     *         @OA\MediaType(
+     *             mediaType="application/json",
+     *             @OA\Schema(
+     *                 required={"key","content","tag_id","locale"},
+     *                 type="object",
+     *                 @OA\Property(
+     *                     property="key",
+     *                     description="Key",
+     *                     type="string",
+     *                     
+     *                 ),
+     *                 @OA\Property(
+     *                     property="content",
+     *                     description="Content",
+     *                     type="string",
+     *                     
+     *                 ),
+     *                 @OA\Property(
+     *                     property="locale",
+     *                     description="Locale",
+     *                     type="string",
+     *                     
+     *                 ),
+     *                 @OA\Property(
+     *                     property="tag_id",
+     *                     description="Tag Id",
+     *                     type="number",
+     *                     
+     *                 ),
+     *              )
+     *          )
+     *       ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="OK",
+     *          ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *          ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Page Not Found"
+     *          )
+     *      ),
      */
     public function update(UpdateTranslationRequest $request, Translation $translation)
     {
@@ -106,6 +282,36 @@ class TranslationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
+
+    /**
+     * @OA\DELETE(
+     *      path="/api/translations/{translation}",
+     *      operationId="delete",
+     *      tags={"Translation"},
+     *      summary="Show Translation",
+     *      security={{"apiKey":{}}},
+     * 
+     *      @OA\Parameter(
+     *         name="translation",
+     *         in="path",
+     *         required=true,
+     *         @OA\Schema(type="string")
+     *     ),
+     *    
+     *      @OA\Response(
+     *          response=200,
+     *          description="OK",
+     *          ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *          ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Page Not Found"
+     *          )
+     *      ),
+     */
     public function destroy(Translation $translation)
     {
 
@@ -122,6 +328,19 @@ class TranslationController extends Controller
             return ResponseHandler::failure($e->getMessage());
         }
     }
+
+    /**
+     * @OA\Post(
+     *     path="/api/translations/export",
+     *     summary="Export translations",
+     *     tags={"Translation"},
+     *     security={ {"apiKey": {} } },
+     *     @OA\Response(
+     *         response=200,
+     *         description="Translation"
+     *     )
+     * )
+     */
 
     public function export()
     {

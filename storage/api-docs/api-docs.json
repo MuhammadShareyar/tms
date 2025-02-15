@@ -1,0 +1,343 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Documentation for TMS",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login",
+                "operationId": "login",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "description": "Email",
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "description": "Password",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "404": {
+                        "description": "Page Not Found"
+                    }
+                }
+            }
+        },
+        "/api/tags": {
+            "get": {
+                "tags": [
+                    "Tags"
+                ],
+                "summary": "Return all tags",
+                "operationId": "list",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "404": {
+                        "description": "Page Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
+            }
+        },
+        "/api/translations": {
+            "get": {
+                "tags": [
+                    "Translation"
+                ],
+                "summary": "Return all translations",
+                "operationId": "index",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "404": {
+                        "description": "Page Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Translation"
+                ],
+                "summary": "Create Translation",
+                "operationId": "store",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "key",
+                                    "content",
+                                    "tag_id",
+                                    "locale"
+                                ],
+                                "properties": {
+                                    "key": {
+                                        "description": "Key",
+                                        "type": "string"
+                                    },
+                                    "content": {
+                                        "description": "Content",
+                                        "type": "string"
+                                    },
+                                    "locale": {
+                                        "description": "Locale",
+                                        "type": "string"
+                                    },
+                                    "tag_id": {
+                                        "description": "Tag Id",
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "404": {
+                        "description": "Page Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
+            }
+        },
+        "/api/translations/{translation}": {
+            "get": {
+                "tags": [
+                    "Translation"
+                ],
+                "summary": "Show Translation",
+                "operationId": "show",
+                "parameters": [
+                    {
+                        "name": "translation",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "404": {
+                        "description": "Page Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Translation"
+                ],
+                "summary": "Update Translation",
+                "operationId": "update",
+                "parameters": [
+                    {
+                        "name": "translation",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "key",
+                                    "content",
+                                    "tag_id",
+                                    "locale"
+                                ],
+                                "properties": {
+                                    "key": {
+                                        "description": "Key",
+                                        "type": "string"
+                                    },
+                                    "content": {
+                                        "description": "Content",
+                                        "type": "string"
+                                    },
+                                    "locale": {
+                                        "description": "Locale",
+                                        "type": "string"
+                                    },
+                                    "tag_id": {
+                                        "description": "Tag Id",
+                                        "type": "number"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "404": {
+                        "description": "Page Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Translation"
+                ],
+                "summary": "Show Translation",
+                "operationId": "delete",
+                "parameters": [
+                    {
+                        "name": "translation",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "404": {
+                        "description": "Page Not Found"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
+            }
+        },
+        "/api/translations/export": {
+            "post": {
+                "tags": [
+                    "Translation"
+                ],
+                "summary": "Export translations",
+                "operationId": "8a28874b53eef8405f70d12f29a4b6fb",
+                "responses": {
+                    "200": {
+                        "description": "Translation"
+                    }
+                },
+                "security": [
+                    {
+                        "apiKey": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "responses": {
+            "422": {
+                "description": "Unprocessable Entity"
+            },
+            "500": {
+                "description": "Internal Server Error"
+            }
+        },
+        "securitySchemes": {
+            "apiKey": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Tags",
+            "description": "Tags"
+        },
+        {
+            "name": "Translation",
+            "description": "Translation"
+        }
+    ]
+}
