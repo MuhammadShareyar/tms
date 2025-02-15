@@ -122,4 +122,38 @@ class TranslationController extends Controller
             return ResponseHandler::failure($e->getMessage());
         }
     }
+
+    public function export()
+    {
+        try {
+
+            Cache::forget('translations');
+
+            $translations = DB::table('translations')
+                ->select(
+                    'translations.key',
+                    'translations.content',
+                    'translations.locale',
+                    DB::raw('GROUP_CONCAT(tags.name) as tags')
+                )
+                ->leftJoin('translation_tags', 'translations.id', '=', 'translation_tags.translation_id')
+                ->leftJoin('tags', 'translation_tags.tag_id', '=', 'tags.id')
+                ->groupBy('translations.id', 'translations.key', 'translations.content', 'translations.locale')
+                ->cursor();
+
+            $result = [];
+
+            foreach ($translations as $t) {
+
+                $result[$t->locale][$t->key] = [
+                    'content' => $t->content,
+                    'tags'    => $t->tags ? explode(',', $t->tags) : [],
+                ];
+            }
+
+            return ResponseHandler::success($result);
+        } catch (Exception $e) {
+            return ResponseHandler::failure($e->getMessage());
+        }
+    }
 }
